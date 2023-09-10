@@ -144,13 +144,30 @@ def exampleSquat():
     
     video.release() 
 
-#video = cv2.VideoCapture('hola.mp4')
+def example():
+    video = cv2.VideoCapture('hola2.mp4')
 
-"""
-for i in range(seconds*30):
-    video.set(cv2.CAP_PROP_POS_FRAMES, i)
-    ret, frame = video.read()
-    cv2.imwrite('./Frame/frame_' + str(i) + '.jpg', frame)
-    bigplotter(frame, i)
-"""
+    for i in range(seconds*30):
+        video.set(cv2.CAP_PROP_POS_FRAMES, i)
+        ret, frame = video.read()
+        cv2.imwrite('./Frame/frame_' + str(i) + '.jpeg', frame)
+        bigplotter(frame, i, 0)
+
+    video.release()
+
+    #Video output
+    file_dir = "./Output/frame_"
+    path_list = []
+    video = cv2.VideoWriter('vid.mp4',cv2.VideoWriter_fourcc(*'mp4v'),30,(720,720))
+    for i in range(seconds*30):
+        path = str(i) + '.jpg'
+        img = cv2.imread(file_dir + path)
+        img = cv2.resize(img, (720,720))
+        try:
+            video.write(img)
+        except:
+            break
+    
+    video.release() 
+
 exampleSquat()
